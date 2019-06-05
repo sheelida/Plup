@@ -8,29 +8,23 @@
 </ion-header>
 
 <ion-content>
-<ion-select placeholder="Select the client"></ion-select>
-<ion-input aria-placeholder="Date"></ion-input>
-<ion-row>
-    <ion-input aria-placeholder="Start"></ion-input>
-    <ion-input aria-placeholder="End"></ion-input>
-</ion-row>
+  <form [formGroup]="addEntryForm" (submit)="addEntry()">
+      <ion-select formControlName="clientID"  placeholder="Select the client" >
+        <ion-select-option *ngFor="let client of clients | async" value="{{client.clientID}}" class="clientName"> {{ client.companyName }}</ion-select-option>
+      </ion-select>
+      <ion-label>Date:</ion-label>
+      <ion-datetime formControlName="entryDate" display-format="DD/MM/YYYY"></ion-datetime>
+      <ion-label>Start:</ion-label>
+      <ion-datetime formControlName="startTime" display-format="hh:mm A"></ion-datetime>
+      <ion-label>End:</ion-label>
+          <ion-datetime formControlName="endTime" display-format="hh:mm A"></ion-datetime>
+      <ion-label>Break:</ion-label>
+      <ion-datetime formControlName="breakTime" display-format="H:mm"></ion-datetime>
 
-<ion-input aria-placeholder="Break"></ion-input>
-<ion-row>
-  <ion-col>
-    <ion-label>Total Hours:</ion-label>
-  </ion-col>
-  <ion-col>
-      <ion-label>Total Amount:</ion-label>
-    </ion-col>
-</ion-row>
-<ion-row>
-    <ion-col>
-      <ion-label>0:00</ion-label>
-    </ion-col>
-    <ion-col>
-        <ion-label>$0</ion-label>
-      </ion-col>
-  </ion-row>
+      <ion-button expand="block" type="submit" [disabled]="!addEntryForm.valid">
+          <ion-icon name="add-circle"></ion-icon> 
+      </ion-button>
+  </form>
+
 </ion-content>
 

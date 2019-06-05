@@ -4,20 +4,17 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'dashboard',
     pathMatch: 'full'
   },
-  {
-    path: 'home',
-    loadChildren: './home/home.module#HomePageModule'
-  },
-  { path: 'clients', loadChildren: './clients/clients.module#ClientsPageModule' },
+  { path: 'clients/:id', loadChildren: './clients/clients.module#ClientsPageModule' },
   { path: 'add-client', loadChildren: './add-client/add-client.module#AddClientPageModule' },
-  { path: 'entries', loadChildren: './entries/entries.module#EntriesPageModule' },
+  { path: 'entries/:id', loadChildren: './entries/entries.module#EntriesPageModule' },
   { path: 'add-entry', loadChildren: './add-entry/add-entry.module#AddEntryPageModule' },
   { path: 'signin', loadChildren: './signin/signin.module#SigninPageModule' },
   { path: 'signout', loadChildren: './signout/signout.module#SignoutPageModule' },
-  { path: 'signup', loadChildren: './signup/signup.module#SignupPageModule' }
+  { path: 'signup', loadChildren: './signup/signup.module#SignupPageModule' },
+  { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardPageModule' }
 ];
 
 @NgModule({

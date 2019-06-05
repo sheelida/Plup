@@ -8,14 +8,23 @@
 </ion-header>
 
 <ion-content>
-  <ion-input placeholder="Client's name"></ion-input>
-  <ion-input placeholder="Hourly Rate"></ion-input>
-  <ion-select placeholder="Pay period"></ion-select>
-
-  <ion-buttons>
-    <ion-button>
-        <ion-icon name="add-circle"></ion-icon> 
-    </ion-button>
-  </ion-buttons>
-
+  <form [formGroup]="addClientForm" (submit)="addClient()">
+    <ion-item>
+        <ion-input formControlName="companyName" type="text" placeholder="Client's name"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-input formControlName="hourlyRate" type="number" placeholder="Hourly Rate"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-select formControlName="payPeriod" type="text" placeholder="Pay period">
+        <ion-select-option value="d">Daily</ion-select-option>
+        <ion-select-option value="w">Weekly</ion-select-option>
+        <ion-select-option value="f">Fortnightly</ion-select-option>
+        <ion-select-option value="m">Monthly</ion-select-option>        
+      </ion-select>
+    </ion-item>
+        <ion-button expand="block" type="submit" [disabled]="!addClientForm.valid">
+            <ion-icon name="add-circle"></ion-icon> 
+        </ion-button>
+  </form>
 </ion-content>

@@ -27,7 +27,7 @@ export class SigninPage implements OnInit {
     .then( (response) =>{
       console.log(response);
       //successful
-      this.router.navigate(['/home']);
+      this.router.navigate(['/dashboard']);
     })
     .catch((error)=>{
       console.log(error);

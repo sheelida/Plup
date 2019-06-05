@@ -15,8 +15,8 @@ export class AppComponent {
   public user:any;
   public appPages = [
     {
-      title: 'Home',
-      url: '/home',
+      title: 'Dashboard',
+      url: '/dashboard',
       icon: 'home'
     },
     {
@@ -73,8 +73,8 @@ export class AppComponent {
         //update navigation for logged in user
         this.appPages = [
           {
-            title: 'Home',
-            url: '/home',
+            title: 'Dashboard',
+            url: '/dashboard',
             icon: 'home'
           },
           {

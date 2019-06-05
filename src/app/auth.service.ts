@@ -29,4 +29,8 @@ export class AuthService {
       .catch((error)=>{reject(error)})
     });
   }
+
+  getUser(){
+    return this.afAuth.auth.currentUser;
+  }
 }
