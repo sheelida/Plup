@@ -32,8 +32,10 @@ export class DataService {
     });
   }
 
-  getClient(userID:string): AngularFirestoreDocument<Client>{
-    return this.dataService.collection(`Client`).doc(userID);
+  getClient(userID:string): AngularFirestoreCollection<Client>{
+    //const data = this.dataService.collection(`Client`).doc<Client>('Etm5cdiBGOvglQ5caiVP');
+    //console.log('data', data)
+    return this.dataService.collection(`Client`, ref => ref.where('userID', '==', userID));
   }
 
   //entry method to include the object into the database
@@ -57,7 +59,7 @@ export class DataService {
     });
   }
 
-  getEntries(clientID:string): AngularFirestoreDocument<Entry[]>{
-    return this.dataService.collection(`Entry`).doc(clientID);
+  getEntries(clientID:string): AngularFirestoreCollection<Entry>{
+    return this.dataService.collection(`Entry`, ref => ref.where('clientID', '==', clientID));
   }
 }

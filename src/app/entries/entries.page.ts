@@ -13,7 +13,7 @@ import { DataService } from '../data.service';
 export class EntriesPage implements OnInit {
 
   clientID:string;
-  public entryDoc: Observable<Entry[]>;
+  public entries: any[];
   constructor(private dataService: DataService, private route: ActivatedRoute) {
    }
 
@@ -22,8 +22,17 @@ export class EntriesPage implements OnInit {
     this.clientID = data.id;
     console.log(this.clientID);
     //this.entryDoc = fireStore.doc<any>(this.clientID);
-    this.entryDoc = this.dataService.getEntries(this.clientID).valueChanges();
-    console.log(this.entryDoc);
+    this.dataService.getEntries(this.clientID).valueChanges().subscribe( response => 
+      {
+        console.log('res',response);
+        this.entries = response;
+      });;
+    console.log(this.entries);
+
+  }
+
+  totalHours(startTime:Date,endTime:Date, breakTime:Date){
+    return Math.abs(endTime.getTime()-breakTime.getTime()-startTime.getTime());
 
   }
 

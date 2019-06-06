@@ -30,21 +30,21 @@
             <ion-label>Total</ion-label>
         </ion-col>  
       </ion-row>
-  <ion-row *ngFor="let entry of entryDoc | async">
+  <ion-row *ngFor="let entry of entries">
     <ion-col col-4>
-        <ion-label>{{ entry.entryDate }}</ion-label>
+        <ion-label>{{ entry.entryDate | date:'dd/MM/yy'}}</ion-label>
     </ion-col>
     <ion-col col-2>
-        <ion-label>{{ entry.startTime }}</ion-label>
+        <ion-label>{{ entry.startTime | date:'hh:mm a'}}</ion-label>
     </ion-col>
     <ion-col col-2>
-        <ion-label>{{ entry.endTime }}</ion-label>
+        <ion-label>{{ entry.endTime | date:'hh:mm a' }}</ion-label>
     </ion-col>
     <ion-col col-2>
-        <ion-label>{{ entry.breakTime }}</ion-label>
+        <ion-label>{{ entry.breakTime | date:'hh:mm' }}</ion-label>
     </ion-col>
     <ion-col col-2>
-        <ion-label></ion-label>
+        <ion-label> {{ totalHours(entry.startTime, entry.endTime, entry.breakTime) }}</ion-label>
     </ion-col>  
   </ion-row>
 

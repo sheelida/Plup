@@ -14,9 +14,9 @@
 </ion-header>
 
 <ion-content>
-  <ion-item *ngFor="let client of clients | async" (click)="clientEntries(client.clientID)">
+  <ion-item *ngFor="let client of clients" (click)="clientEntries(client.clientID)">
     <ion-label class="clientName">
-      {{ (client | async)?.companyName }}
+      {{ client.companyName }}
     </ion-label>
   </ion-item>
 

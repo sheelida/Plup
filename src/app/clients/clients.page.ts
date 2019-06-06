@@ -12,28 +12,27 @@ import { Observable } from 'rxjs';
 })
 export class ClientsPage implements OnInit {
 
-  public clients: Observable<Client>;
+  public clients:any[];
     constructor( 
     private router:Router,
     private dataService: DataService,
     private authService:AuthService
-
      ) { 
-      
+      const userID = this.authService.getUser().uid;  
+
+      console.log("test",userID);
+  
+      this.clients= [];
+      this.dataService.getClient(userID).valueChanges().subscribe( response => 
+        {
+          console.log('res',response);
+          this.clients = response;
+        });
+      console.log('clientes', this.clients);
      }
 
   ngOnInit() {
-    const userID = this.authService.getUser().uid;  
-
-    console.log("test",userID);
-
-     this.clients = this.dataService.getClient(userID).valueChanges();
-     
-    //  .subscribe( response => 
-    //   {
-    //     console.log(response);
-    //   });
-    console.log(this.clients);
+   
   }
 
   clientEntries(id:string){
