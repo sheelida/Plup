@@ -7,7 +7,7 @@ const routes: Routes = [
     redirectTo: 'dashboard',
     pathMatch: 'full'
   },
-  { path: 'clients/:id', loadChildren: './clients/clients.module#ClientsPageModule' },
+  { path: 'clients', loadChildren: './clients/clients.module#ClientsPageModule' },
   { path: 'add-client', loadChildren: './add-client/add-client.module#AddClientPageModule' },
   { path: 'entries/:id', loadChildren: './entries/entries.module#EntriesPageModule' },
   { path: 'add-entry', loadChildren: './add-entry/add-entry.module#AddEntryPageModule' },

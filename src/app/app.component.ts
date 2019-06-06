@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   public user:any;
+
   public appPages = [
     {
       title: 'Dashboard',
@@ -70,6 +71,7 @@ export class AppComponent {
     this.afAuth.authState.subscribe((user)=>{
       if(user){
         this.user = user;
+
         //update navigation for logged in user
         this.appPages = [
           {

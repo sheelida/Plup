@@ -8,7 +8,11 @@ import { Entry } from '../models/entry.model';
 })
 export class DataService {
 
-  constructor(public dataService: AngularFirestore) { }
+  userObj:any;
+
+
+  constructor(public dataService: AngularFirestore) { 
+  }
   //method to include the object into the database
   addClient(
     companyName: string,

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Client } from  '../../models/client.model';
 import { DataService } from './../data.service';
+import { AuthService } from './../auth.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-clients',
@@ -10,19 +12,28 @@ import { DataService } from './../data.service';
 })
 export class ClientsPage implements OnInit {
 
-  public clients;
-  constructor( 
+  public clients: Observable<Client>;
+    constructor( 
     private router:Router,
     private dataService: DataService,
-    private route:ActivatedRoute
+    private authService:AuthService
 
-     ) { }
+     ) { 
+      
+     }
 
   ngOnInit() {
-    const data = JSON.parse(this.route.snapshot.paramMap.get('id'));
-    this.clients = this.dataService.getClient(data.id).valueChanges();
-    
-    
+    const userID = this.authService.getUser().uid;  
+
+    console.log("test",userID);
+
+     this.clients = this.dataService.getClient(userID).valueChanges();
+     
+    //  .subscribe( response => 
+    //   {
+    //     console.log(response);
+    //   });
+    console.log(this.clients);
   }
 
   clientEntries(id:string){
