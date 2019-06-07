@@ -10,7 +10,7 @@
 <ion-content>
   <form [formGroup]="addEntryForm" (submit)="addEntry()">
       <ion-select formControlName="clientID"  placeholder="Select the client" >
-        <ion-select-option *ngFor="let client of clients | async" value="{{client.clientID}}" class="clientName"> {{ client.companyName }}</ion-select-option>
+        <ion-select-option *ngFor="let client of clients" value="{{client.clientID}}" class="clientName"> {{ client.companyName }}</ion-select-option>
       </ion-select>
       <ion-label>Date:</ion-label>
       <ion-datetime formControlName="entryDate" display-format="DD/MM/YYYY"></ion-datetime>

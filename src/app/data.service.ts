@@ -44,7 +44,7 @@ export class DataService {
     startTime: number,
     endTime: number,
     breakTime: number,
-    clientID: number
+    clientID: string
   ): Promise <void> {
     //create an ID before inserting into the database
     const entryID = this.dataService.createId();

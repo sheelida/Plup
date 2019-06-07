@@ -21,7 +21,6 @@ export class EntriesPage implements OnInit {
     const data = JSON.parse(this.route.snapshot.paramMap.get('id'));
     this.clientID = data.id;
     console.log(this.clientID);
-    //this.entryDoc = fireStore.doc<any>(this.clientID);
     this.dataService.getEntries(this.clientID).valueChanges().subscribe( response => 
       {
         console.log('res',response);
@@ -31,8 +30,10 @@ export class EntriesPage implements OnInit {
 
   }
 
-  totalHours(startTime:Date,endTime:Date, breakTime:Date){
-    return Math.abs(endTime.getTime()-breakTime.getTime()-startTime.getTime());
+  totalHours(startTime:number,endTime:number, breakTime:number){
+    var nowDate = new Date();
+    var noUnixDate = nowDate.getTime(); //UNIX
+    return endTime-breakTime-startTime;
 
   }
 
