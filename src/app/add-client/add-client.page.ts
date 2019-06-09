@@ -46,8 +46,7 @@ export class AddClientPage implements OnInit {
     .then(
       ()=>{
         loading.dismiss().then(() => {
-          const idJSON = JSON.stringify({id:user.uid})
-          this.router.navigate(['/clients',idJSON]);
+          this.router.navigate(['/clients']);
         });
       },
       error =>{

@@ -14,4 +14,18 @@
 ion-input, ion-textarea{
     border: 1px solid #d1d0d0;
     border-radius:5px;
+    padding: 0 5px;
+}
+
+.dataSize{
+    font-size: 12px;
+}
+
+ion-input, ion-label, ion-button{
+    margin: 4% 5%;
+}
+
+.native-input.sc-ion-input-md{
+    padding-left: 10px;
+    padding-right: 10px;
 }

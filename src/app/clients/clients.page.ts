@@ -20,7 +20,7 @@ export class ClientsPage implements OnInit {
      ) { 
       const userID = this.authService.getUser().uid;  
 
-      console.log("test",userID);
+      console.log("UserID:",userID);
   
       this.clients= [];
       this.dataService.getClient(userID).valueChanges().subscribe( response => 
@@ -28,17 +28,24 @@ export class ClientsPage implements OnInit {
           console.log('res',response);
           this.clients = response;
         });
-      console.log('clientes', this.clients);
      }
 
   ngOnInit() {
    
   }
 
+  //SEND CLIENT ID TO FILTER ENTRIES
   clientEntries(id:string){
     const idJSON = JSON.stringify({id: id});
     //redirect to another page with the id selected
     this.router.navigate(['/entries',idJSON]);
+  }
+
+  //SEND CLIENT ID TO GET CLIENT DETAILS
+  clientDetails(id:string){
+    const idJSON = JSON.stringify({id: id});
+    //redirect to another page with the id selected
+    this.router.navigate(['/client-details',idJSON]);
   }
 
 }

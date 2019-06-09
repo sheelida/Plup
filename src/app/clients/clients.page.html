@@ -14,10 +14,15 @@
 </ion-header>
 
 <ion-content>
-  <ion-item *ngFor="let client of clients" (click)="clientEntries(client.clientID)">
-    <ion-label class="clientName">
+  <ion-item *ngFor="let client of clients">
+    <ion-label class="clientName" (click)="clientEntries(client.clientID)">
       {{ client.companyName }}
     </ion-label>
+      <ion-buttons slot="end">
+          <ion-button (click)="clientDetails(client.clientID)">
+            <ion-icon name="information-circle" color="secondary"></ion-icon>
+          </ion-button>
+      </ion-buttons>  
   </ion-item>
 
 </ion-content>

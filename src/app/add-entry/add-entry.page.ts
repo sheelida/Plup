@@ -4,7 +4,7 @@ import { DataService } from '../data.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoadingController, AlertController } from '@ionic/angular';
 import { AuthService } from '../auth.service';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+
 
 @Component({
   selector: 'app-add-entry',
@@ -14,9 +14,12 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 export class AddEntryPage implements OnInit {
   public addEntryForm:FormGroup;
   public clients:any[];
-  totalHours:number;
+  totalHours:any;
 
-  
+  public entryDate;
+  public startTime;
+  public endTime;
+  public breakTime;
 
   constructor(
     public loadingCtrl:LoadingController,
@@ -51,39 +54,41 @@ export class AddEntryPage implements OnInit {
   async addEntry(){
     const loading = await this.loadingCtrl.create();
 
-    //get all values from the fields and put into variables
-    var entryDate =  new Date();
-    entryDate = this.addEntryForm.value.entryDate;
-  
+    //get all values from the fields and convert into UNIX time 
     
-    console.log(entryDate);
-    // const startTime = (this.addEntryForm.value.startTime).getUnixTime();
-    // const endTime = (this.addEntryForm.value.endTime).getUnixTime();
-    // const breakTime = (this.addEntryForm.value.breakTime).getUnixTime();
-    // const clientID = this.addEntryForm.value.clientID;
+    this.entryDate =  new Date(this.addEntryForm.value.entryDate);
+    this.startTime = new Date(this.addEntryForm.value.startTime)
+    this.endTime = new Date (this.addEntryForm.value.endTime);
+    this.breakTime = new Date(this.addEntryForm.value.breakTime);
+    let clientID = this.addEntryForm.value.clientID;
 
-    //putting the values into the method from dataService
-    // this.dataService.addEntry(entryUnixDate, startTime, endTime, breakTime, clientID)
-    // .then(
-    //   ()=> {
-    //     loading.dismiss().then(() =>{
-    //       this.router.navigate(['/entries/',clientID]);
-    //     });
-    //   },
-    //   error=>{
-    //     console.error(error, "Entry couldn't be inserted.")
-    //   }
-    // );
+    // putting the values into the method from dataService
+    this.dataService.addEntry(
+      this.entryDate.getTime(), 
+      this.startTime.getTime(), 
+      this.endTime.getTime(),
+      this.breakTime.getTime(), 
+      clientID
+    )
+    .then(
+      ()=> {
+        loading.dismiss().then(() =>{
+          const idJSON = JSON.stringify({id: clientID});
+          this.router.navigate(['/entries/',idJSON]);
+        });
+      },
+      error=>{
+        console.error(error, "Entry couldn't be inserted.")
+      }
+    );
     return await loading.present();
   }
 
   sumTotalHours(){
-    const startTime = this.addEntryForm.value.startTime.getTime();
-    const endTime = this.addEntryForm.value.endTime.getTime();
-    const breakTime = this.addEntryForm.value.breakTime.getTime();
-
     //calculate to get the total hours
-    this.totalHours = (startTime + endTime) - breakTime;
+    //this.totalHours = new Date(endTime-breakTime-startTime);
+
+    return this.totalHours;
   }
 
 

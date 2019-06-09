@@ -14,7 +14,9 @@ const routes: Routes = [
   { path: 'signin', loadChildren: './signin/signin.module#SigninPageModule' },
   { path: 'signout', loadChildren: './signout/signout.module#SignoutPageModule' },
   { path: 'signup', loadChildren: './signup/signup.module#SignupPageModule' },
-  { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardPageModule' }
+  { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardPageModule' },
+  { path: 'client-details/:id', loadChildren: './client-details/client-details.module#ClientDetailsPageModule' }
+
 ];
 
 @NgModule({

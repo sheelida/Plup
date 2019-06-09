@@ -13,7 +13,8 @@
 </ion-header>
 
 <ion-content>
-    <ion-row>
+    <ion-grid>
+ <ion-item lines="none">
         <ion-col col-4>
             <ion-label>Date</ion-label>
         </ion-col>
@@ -29,28 +30,57 @@
         <ion-col col-2>
             <ion-label>Total</ion-label>
         </ion-col>  
-      </ion-row>
-  <ion-row *ngFor="let entry of entries">
-    <ion-col col-4>
-        <ion-label>{{ entry.entryDate | date:'dd/MM/yy'}}</ion-label>
-    </ion-col>
-    <ion-col col-2>
-        <ion-label>{{ entry.startTime | date:'hh:mm a'}}</ion-label>
-    </ion-col>
-    <ion-col col-2>
-        <ion-label>{{ entry.endTime | date:'hh:mm a' }}</ion-label>
-    </ion-col>
-    <ion-col col-2>
-        <ion-label>{{ entry.breakTime | date:'hh:mm' }}</ion-label>
-    </ion-col>
-    <ion-col col-2>
-        <ion-label> {{ totalHours(entry.startTime, entry.endTime, entry.breakTime) }}</ion-label>
-    </ion-col>  
-  </ion-row>
+    </ion-item>
+<ion-item-sliding>
+    <ion-item *ngFor="let entry of entries" class="dataSize">        
+        <ion-col col-4>
+            <ion-label>{{ entry.entryDate | date:'dd/MM/yy'}}</ion-label>
+        </ion-col>
+        <ion-col col-2>
+            <ion-label>{{ entry.startTime | date:'hh:mm a'}}</ion-label>
+        </ion-col>
+        <ion-col col-2>
+            <ion-label>{{ entry.endTime | date:'hh:mm a' }}</ion-label>
+        </ion-col>
+        <ion-col col-2>
+            <ion-label>{{ entry.breakTime | date:'hh:mm' }}</ion-label>
+        </ion-col>
+        <ion-col col-2>
+            <ion-label> {{ totalHours(entry.startTime, entry.endTime, entry.breakTime) | date: 'hh:mm'}}</ion-label>
+        </ion-col>  
+    </ion-item>
+         <ion-item-options>
+            <ion-item-option color="primary">
+              <ion-icon slot="top" name="more"></ion-icon>
+              More
+            </ion-item-option>
+            <ion-item-option color="secondary">
+              <ion-icon slot="top" name="archive"></ion-icon>
+              Archive
+            </ion-item-option>
+          </ion-item-options>
+  
+</ion-item-sliding>
 
-  <ion-item>
+</ion-grid>
 
+<ion-item-sliding>
+        <ion-item>
+          <ion-label>
+            Sliding Item, Icons Top
+          </ion-label>
+        </ion-item>
+        <ion-item-options>
+          <ion-item-option color="primary">
+            <ion-icon slot="top" name="more"></ion-icon>
+            More
+          </ion-item-option>
+          <ion-item-option color="secondary">
+            <ion-icon slot="top" name="archive"></ion-icon>
+            Archive
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
 
-  </ion-item>
 
 </ion-content>

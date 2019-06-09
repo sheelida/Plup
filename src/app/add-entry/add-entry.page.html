@@ -13,13 +13,16 @@
         <ion-select-option *ngFor="let client of clients" value="{{client.clientID}}" class="clientName"> {{ client.companyName }}</ion-select-option>
       </ion-select>
       <ion-label>Date:</ion-label>
-      <ion-datetime formControlName="entryDate" display-format="DD/MM/YYYY"></ion-datetime>
+      <ion-datetime formControlName="entryDate" display-format="DD/MM/YYYY" ></ion-datetime>
       <ion-label>Start:</ion-label>
       <ion-datetime formControlName="startTime" display-format="hh:mm A"></ion-datetime>
       <ion-label>End:</ion-label>
           <ion-datetime formControlName="endTime" display-format="hh:mm A"></ion-datetime>
       <ion-label>Break:</ion-label>
-      <ion-datetime formControlName="breakTime" display-format="H:mm"></ion-datetime>
+      <ion-datetime formControlName="breakTime" display-format="HH:mm"></ion-datetime>
+
+      <ion-label>Total:</ion-label>
+      <ion-label *ngIf="sumTotalHours()">Total</ion-label>
 
       <ion-button expand="block" type="submit" [disabled]="!addEntryForm.valid">
           <ion-icon name="add-circle"></ion-icon> 

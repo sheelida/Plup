@@ -26,8 +26,8 @@ export class AppComponent {
       icon: 'people'
     },
     {
-      title: 'Entries',
-      url: '/entries',
+      title: 'Add Entry',
+      url: '/add-entry',
       icon: 'time'
     },   
     {
@@ -85,8 +85,13 @@ export class AppComponent {
             icon: 'people'
           },
           {
-            title: 'Entries',
-            url: '/entries',
+            title: 'Add Client',
+            url: '/add-client',
+            icon: 'person-add'
+          },
+          {
+            title: 'Add Entry',
+            url: '/add-entry',
             icon: 'time'
           }, 
           {
@@ -100,16 +105,16 @@ export class AppComponent {
         this.user = null;
         this.router.navigate(['/signin']);
         //update navigation for non authed user
-        this.appPages = [
-          {
-            title: 'Signup',
-            url:'/signup',
-            icon: 'person-add'
-          },
+        this.appPages = [        
           {
             title: 'Signin',
             url:'/signin',
             icon: 'log-in'
+          },
+          {
+            title: 'Signup',
+            url:'/signup',
+            icon: 'person-add'
           }
         ];
       }

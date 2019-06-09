@@ -14,6 +14,7 @@ export class EntriesPage implements OnInit {
 
   clientID:string;
   public entries: any[];
+  public sumHours: any;
   constructor(private dataService: DataService, private route: ActivatedRoute) {
    }
 
@@ -26,14 +27,12 @@ export class EntriesPage implements OnInit {
         console.log('res',response);
         this.entries = response;
       });;
-    console.log(this.entries);
 
   }
 
   totalHours(startTime:number,endTime:number, breakTime:number){
-    var nowDate = new Date();
-    var noUnixDate = nowDate.getTime(); //UNIX
-    return endTime-breakTime-startTime;
+    this.sumHours = new Date((endTime-startTime)-breakTime);
+    return this.sumHours;
 
   }
 

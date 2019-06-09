@@ -62,4 +62,12 @@ export class DataService {
   getEntries(clientID:string): AngularFirestoreCollection<Entry>{
     return this.dataService.collection(`Entry`, ref => ref.where('clientID', '==', clientID));
   }
+
+  getClientDetails(clientID:string): AngularFirestoreCollection<Entry>{
+    return this.dataService.collection(`Client`, ref => ref.where('clientID', '==', clientID));
+  }
+
+  deleteClient(clientID:string): Promise<void>{
+    return this.dataService.doc(`Client/${clientID}`).delete();
+  }
 }

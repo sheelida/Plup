@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+    <ion-title>Client Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content *ngFor="let detail of details">
+<ion-col align-items-center>
+  <ion-row>
+    <ion-label>Company Name:</ion-label>    
+  </ion-row>
+  <ion-row>
+    <ion-input value="{{detail.companyName}}" disabled> </ion-input>    
+  </ion-row>
+  <ion-row>
+    <ion-label>Hourly Rate:</ion-label>
+  </ion-row>
+  <ion-row>
+    <ion-input value="${{detail.hourlyRate | number:'1.2-2'}}" disabled> </ion-input>   
+  </ion-row>
+  <ion-row>
+    <ion-label>Pay period:</ion-label>
+  </ion-row>
+  <ion-row>
+    <ion-input *ngIf="detail.payPeriod == 'f'" value="Fortnightly" disabled></ion-input>
+    <ion-input *ngIf="detail.payPeriod == 'w'" value="Weekly" disabled></ion-input>
+    <ion-input *ngIf="detail.payPeriod == 'm'" value="Monthly" disabled></ion-input>
+    <ion-input *ngIf="detail.payPeriod == 'd'" value="Daily" disabled></ion-input>
+  </ion-row>
+</ion-col>
+  <ion-button color="danger" (click)="deleteClient()">
+      <ion-icon name="trash"></ion-icon>
+      Delete Client
+  </ion-button>
+</ion-content>
+
