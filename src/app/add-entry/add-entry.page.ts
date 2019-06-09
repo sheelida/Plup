@@ -54,14 +54,14 @@ export class AddEntryPage implements OnInit {
     //get all values from the fields and put into variables
     var entryDate =  new Date();
     entryDate = this.addEntryForm.value.entryDate;
-    const entryUnixDate = entryDate.getTime();
+  
     
-    console.log(entryUnixDate);
+    console.log(entryDate);
     // const startTime = (this.addEntryForm.value.startTime).getUnixTime();
     // const endTime = (this.addEntryForm.value.endTime).getUnixTime();
     // const breakTime = (this.addEntryForm.value.breakTime).getUnixTime();
     // const clientID = this.addEntryForm.value.clientID;
-      
+
     //putting the values into the method from dataService
     // this.dataService.addEntry(entryUnixDate, startTime, endTime, breakTime, clientID)
     // .then(
