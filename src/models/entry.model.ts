@@ -5,4 +5,5 @@ export interface Entry{
     endTime: number;
     breakTime: number;
     clientID: string;
+    totalHours: number;
 }

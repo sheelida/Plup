@@ -18,7 +18,16 @@ ion-input, ion-textarea{
 }
 
 .dataSize{
-    font-size: 12px;
+    font-size: 11px;
+}
+.headerSize{
+    font-weight: 600;
+    font-size: 11px;
+}
+
+ion-col{
+    padding:0;
+    text-align: center;
 }
 
 ion-input, ion-label, ion-button{

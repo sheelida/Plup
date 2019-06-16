@@ -10,22 +10,23 @@
 </ion-header>
 
 <ion-content>
-  <form [formGroup]="countingForm" (submit)="saveStart()">
+  <form [formGroup]="countingForm">
     <ion-item lines="none">
       <ion-label>Let's start counting!</ion-label>
     </ion-item>
-    <ion-item>
       <ion-select formControlName="clientID" placeholder="Select the client" >
           <ion-select-option *ngFor="let client of clients" value="{{client.clientID}}" class="clientName"> {{ client.companyName }}</ion-select-option>
       </ion-select>
-    </ion-item>
 
+     
 
-      <ion-button [disabled]="!countingForm.valid && !startEnabled">Start</ion-button>
+      <ion-button [disabled]="started" (click)="saveStart()">Start</ion-button>
 
-      <ion-button type="submit" [disabled]="!countingForm.valid && !endEnabled">Stop & Save</ion-button>
+      <ion-button [disabled]="!started"  (click)="saveEnd()">Stop & Save</ion-button>
 
-  </form>
+      
+    </form>
+    <ion-label>  {{ this.timerDate | date: 'h:mm:ss':'UTC' }}</ion-label>
 
 
 </ion-content>

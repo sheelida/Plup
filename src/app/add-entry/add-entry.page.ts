@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from '../data.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { LoadingController, AlertController } from '@ionic/angular';
+import { LoadingController, AlertController, PickerController } from '@ionic/angular';
 import { AuthService } from '../auth.service';
+import { PickerOptions } from '@ionic/core';
 
 
 @Component({
@@ -15,11 +16,13 @@ export class AddEntryPage implements OnInit {
   public addEntryForm:FormGroup;
   public clients:any[];
   totalHours:any;
+  hours:number = 0;
+  minutes:number = 0;
 
   public entryDate;
   public startTime;
   public endTime;
-  public breakTime;
+  public breakTime=0;
 
   constructor(
     public loadingCtrl:LoadingController,
@@ -27,13 +30,13 @@ export class AddEntryPage implements OnInit {
     private router:Router,
     private dataService:DataService,
     formBuilder: FormBuilder,
-    private authService:AuthService    
+    private authService:AuthService,
+    private pickerCtrl: PickerController   
   ) { 
     this.addEntryForm = formBuilder.group({
       entryDate: ['',Validators.required],
       startTime: ['',Validators.required],
       endTime: ['',Validators.required],
-      breakTime: ['',Validators.required],
       clientID: ['', Validators.required]
     })
   }
@@ -59,16 +62,18 @@ export class AddEntryPage implements OnInit {
     this.entryDate =  new Date(this.addEntryForm.value.entryDate);
     this.startTime = new Date(this.addEntryForm.value.startTime)
     this.endTime = new Date (this.addEntryForm.value.endTime);
-    this.breakTime = new Date(this.addEntryForm.value.breakTime);
     let clientID = this.addEntryForm.value.clientID;
+
+    console.log(this.breakTime);
 
     // putting the values into the method from dataService
     this.dataService.addEntry(
       this.entryDate.getTime(), 
       this.startTime.getTime(), 
       this.endTime.getTime(),
-      this.breakTime.getTime(), 
-      clientID
+      this.breakTime, 
+      clientID,
+      this.totalHours.getTime(),
     )
     .then(
       ()=> {
@@ -84,11 +89,85 @@ export class AddEntryPage implements OnInit {
     return await loading.present();
   }
 
-  sumTotalHours(){
-    //calculate to get the total hours
-    //this.totalHours = new Date(endTime-breakTime-startTime);
+  //WEBSITE REFERENCE FOR UNIX/EPOCH: https://www.epochconverter.com/
+  sumTotalHours(breakTime:number){
+    //transform the UNIX timestamp into epoch
+    this.startTime = Math.floor(new Date (this.addEntryForm.value.startTime).getTime()/1000.0);
+    this.endTime = Math.floor(new Date (this.addEntryForm.value.endTime).getTime()/1000.0);
 
-    return this.totalHours;
+    let difference = this.endTime-this.startTime-breakTime;
+    //doing the calculation and transforming into unix again
+    let totalEpochToUnix= new Date(difference*1000);
+    //show the difference in simple timezone
+
+    this.totalHours = totalEpochToUnix.toUTCString();
+    console.log("Total",this.totalHours )
+  }
+
+  //picker data and function
+  async showBreakPicker(){
+    let opts: PickerOptions ={
+      buttons:[
+        {
+          text: 'Ok'
+        }
+      ],
+      columns:[
+        {
+          name: 'hours',
+          options:[
+            {text: '0', value: 0},
+            {text: '1', value: 1},
+            {text: '2', value: 2},
+            {text: '3', value: 3},
+            {text: '4', value: 4},
+            {text: '5', value: 5},
+            {text: '6', value: 6},
+            {text: '7', value: 7},
+            {text: '8', value: 8},
+            {text: '9', value: 9},
+            {text: '10', value: 10},
+            {text: '11', value: 11},
+            {text: '12', value: 12}
+          ]
+        },
+        { name: 'minutes',
+          options:[
+          {text: '0', value: 0},
+          {text: '5', value: 5},
+          {text: '10', value: 10},
+          {text: '15', value: 15},
+          {text: '20', value: 20},
+          {text: '25', value: 25},
+          {text: '30', value: 30},
+          {text: '35', value: 35},
+          {text: '40', value: 40},
+          {text: '45', value: 45},
+          {text: '50', value: 50},
+          {text: '55', value: 55},
+          {text: '60', value: 60}
+        ]
+
+        }
+      ]
+    };
+    let picker = await this.pickerCtrl.create(opts);
+    picker.present();
+    picker.onDidDismiss().then(async data=>{
+      let hours = await picker.getColumn('hours');
+      let minutes = await picker.getColumn('minutes');
+
+      this.hours= parseInt(hours.options[hours.selectedIndex].text);
+      this.minutes= parseInt(minutes.options[minutes.selectedIndex].text);
+
+    //prepare data to send to the function
+    this.breakTime = (this.hours*3600) + (this.minutes*60);
+    console.log("breakTime", this.breakTime);
+      //update total when selected a value
+      this.sumTotalHours(this.breakTime);
+    })
+    //update total when clicked into the button
+    this.sumTotalHours(this.breakTime);
   }
 
 

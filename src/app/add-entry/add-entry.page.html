@@ -19,10 +19,14 @@
       <ion-label>End:</ion-label>
           <ion-datetime formControlName="endTime" display-format="hh:mm A"></ion-datetime>
       <ion-label>Break:</ion-label>
-      <ion-datetime formControlName="breakTime" display-format="HH:mm"></ion-datetime>
+      <ion-row>
+
+        <ion-button (click)="showBreakPicker()">Select break</ion-button>
+        <ion-label>{{ this.hours }}h(s) : {{ this.minutes }}min(s)</ion-label>
+      </ion-row>
 
       <ion-label>Total:</ion-label>
-      <ion-label *ngIf="sumTotalHours()">Total</ion-label>
+      <ion-label>{{ this.totalHours | date: 'h:mm' : 'UTC'}}</ion-label>
 
       <ion-button expand="block" type="submit" [disabled]="!addEntryForm.valid">
           <ion-icon name="add-circle"></ion-icon> 

@@ -3,8 +3,9 @@ import { DataService } from '../data.service';
 import { AuthService } from '../auth.service';
 import { FormBuilder,FormGroup, Validators } from '@angular/forms';
 import { LoadingController } from '@ionic/angular';
-import { start } from 'repl';
 import { Router } from '@angular/router';
+import { timer } from 'rxjs'
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,8 +18,10 @@ export class DashboardPage implements OnInit {
   todayDate:number;
   todayStart:number;
   clientID:string;
-  startEnabled:boolean;
-  endEnabled:boolean;
+  started:boolean = false;
+  totalHours:number = 0;
+  timerDate:any;
+  subscribe:any;
 
 
   constructor(
@@ -31,6 +34,8 @@ export class DashboardPage implements OnInit {
       this.countingForm = formBuilder.group({
         clientID: ['', Validators.required]
       })
+
+   
     }
 
   ngOnInit() {    
@@ -41,8 +46,6 @@ export class DashboardPage implements OnInit {
         console.log('res',response);
         this.clients = response;
       });
-
-      this.startEnabled=true;
   }
 
   async saveStart(){  
@@ -52,13 +55,19 @@ export class DashboardPage implements OnInit {
     this.todayDate = Date.now();
     this.todayStart = Date.now();
 
-    this.startEnabled= false;
-    this.endEnabled= true;
-
+    this.toggleStarted();
+    this.startCounting();
 
   }
+  toggleStarted(){
+    this.started = this.started ? false : true;
+  }
+
+ 
 
   async saveEnd(){
+    this.toggleStarted();
+    this.endCounting();
     const loading = await this.loadingCtrl.create();
 
     let todayEnd = Date.now();
@@ -70,13 +79,13 @@ export class DashboardPage implements OnInit {
       this.todayStart,
       todayEnd,
       breakTime,
-      this.clientID
+      this.clientID,
+      this.totalHours
     )
     .then(
       ()=> {
         loading.dismiss().then(() =>{
           const idJSON = JSON.stringify({id: this.clientID});
-
         });
       },
       error=>{
@@ -86,4 +95,17 @@ export class DashboardPage implements OnInit {
     return await loading.present();
   }
 
+  startCounting(){
+    const source  = timer(1000,2000);
+    this.subscribe = source.subscribe(val => {
+        this.timerDate = new Date(val*1000);
+        console.log(this.timerDate);
+                    
+    }); 
+  }
+  endCounting(){
+    //stop counter
+    this.subscribe.unsubscribe();
+      
+  }
 }
