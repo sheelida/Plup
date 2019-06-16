@@ -1,5 +1,5 @@
 export interface Client{
-    clientID: number;
+    clientID: string;
     companyName: string;
     hourlyRate: number;
     payPeriod: string;

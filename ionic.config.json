@@ -1,5 +1,7 @@
 {
   "name": "plup",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

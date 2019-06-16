@@ -18,6 +18,7 @@ export class AddEntryPage implements OnInit {
   totalHours:any;
   hours:number = 0;
   minutes:number = 0;
+  totalInsert:number;
 
   public entryDate;
   public startTime;
@@ -47,7 +48,6 @@ export class AddEntryPage implements OnInit {
     //get clients from database to show in the ion-select
     this.dataService.getClient(userID).valueChanges().subscribe( response => 
       {
-        console.log('res',response);
         this.clients = response;
       });
   }
@@ -64,7 +64,6 @@ export class AddEntryPage implements OnInit {
     this.endTime = new Date (this.addEntryForm.value.endTime);
     let clientID = this.addEntryForm.value.clientID;
 
-    console.log(this.breakTime);
 
     // putting the values into the method from dataService
     this.dataService.addEntry(
@@ -73,7 +72,7 @@ export class AddEntryPage implements OnInit {
       this.endTime.getTime(),
       this.breakTime, 
       clientID,
-      this.totalHours.getTime(),
+      this.totalInsert,
     )
     .then(
       ()=> {
@@ -95,13 +94,11 @@ export class AddEntryPage implements OnInit {
     this.startTime = Math.floor(new Date (this.addEntryForm.value.startTime).getTime()/1000.0);
     this.endTime = Math.floor(new Date (this.addEntryForm.value.endTime).getTime()/1000.0);
 
-    let difference = this.endTime-this.startTime-breakTime;
+    this.totalInsert = this.endTime-this.startTime-breakTime;
     //doing the calculation and transforming into unix again
-    let totalEpochToUnix= new Date(difference*1000);
+    let totalEpochToUnix= new Date(this.totalInsert*1000);
     //show the difference in simple timezone
-
     this.totalHours = totalEpochToUnix.toUTCString();
-    console.log("Total",this.totalHours )
   }
 
   //picker data and function
@@ -162,7 +159,6 @@ export class AddEntryPage implements OnInit {
 
     //prepare data to send to the function
     this.breakTime = (this.hours*3600) + (this.minutes*60);
-    console.log("breakTime", this.breakTime);
       //update total when selected a value
       this.sumTotalHours(this.breakTime);
     })

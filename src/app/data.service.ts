@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Client } from '../models/client.model';
 import { Entry } from '../models/entry.model';
+import { element } from '@angular/core/src/render3';
+import { EntriesPage } from './entries/entries.page';
+import { LoadingController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +14,7 @@ export class DataService {
   userObj:any;
 
 
-  constructor(public dataService: AngularFirestore) { 
+  constructor(public dataService: AngularFirestore,  public loadingCtrl:LoadingController) { 
   }
   //method to include the object into the database
   addClient(
@@ -71,5 +74,13 @@ export class DataService {
 
   deleteClient(clientID:string): Promise<void>{
     return this.dataService.doc(`Client/${clientID}`).delete();
+  }  
+
+  getEntryDetails(entryID:string): AngularFirestoreCollection<Entry>{
+    return this.dataService.collection(`Entry`, ref => ref.where('entryID', '==', entryID));
+  }
+
+  deleteEntry(entryID:string): Promise<void>{
+    return this.dataService.doc(`Entry/${entryID}`).delete();
   }
 }

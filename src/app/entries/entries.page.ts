@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Entry } from '../../models/entry.model';
 import { DataService } from '../data.service';
@@ -15,7 +15,9 @@ export class EntriesPage implements OnInit {
   clientID:string;
   public entries: any[];
   public sumHours: any;
-  constructor(private dataService: DataService, private route: ActivatedRoute) {
+  constructor(private dataService: DataService, 
+    private route: ActivatedRoute,
+    private router: Router) {
    }
 
   ngOnInit() {
@@ -30,11 +32,18 @@ export class EntriesPage implements OnInit {
 
   }
 
-  totalHours(startTime:number,endTime:number, breakTime:number){
-    this.sumHours = new Date((endTime-startTime)-breakTime);
-    return this.sumHours;
+    //SEND ENTRY ID TO GET ENTRY DETAILS
+    entryDetails(id:string){
+      const idJSON = JSON.stringify({id: id});
+      //redirect to another page with the id selected
+      this.router.navigate(['../entry-details',idJSON]);
+    }
 
-  }
+    convertEpochToUTC(hour:number){
+      let UNIXtime = new Date(hour*1000);      
+      this.sumHours = UNIXtime.toUTCString();
+      return true;
+    }
 
   
 

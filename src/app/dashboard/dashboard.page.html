@@ -18,15 +18,26 @@
           <ion-select-option *ngFor="let client of clients" value="{{client.clientID}}" class="clientName"> {{ client.companyName }}</ion-select-option>
       </ion-select>
 
-     
+      <ion-label class="timerClock">  {{ this.timerDate? (this.timerDate | date: 'H:mm:ss':'UTC') : "0:00:00" }} </ion-label>
 
-      <ion-button [disabled]="started" (click)="saveStart()">Start</ion-button>
 
-      <ion-button [disabled]="!started"  (click)="saveEnd()">Stop & Save</ion-button>
 
-      
+          <ion-button class="button button-small" [disabled]="started" (click)="saveStart()" slot="start">Start</ion-button>
+
+          <ion-button class="button button-small" [disabled]="!started"  (click)="saveEnd()" slot="end">Stop & Save</ion-button>
+    
+
+
     </form>
-    <ion-label>  {{ this.timerDate | date: 'h:mm:ss':'UTC' }}</ion-label>
-
+    
+    <ion-item-divider>
+    <ion-col>
+      <ion-label>
+        Total hours:
+      </ion-label>
+      <ion-input value="{{ this.allEntriesTotalHours/3660 | number:'1.2-2' }}" disabled></ion-input>
+      
+    </ion-col>
+    </ion-item-divider>
 
 </ion-content>

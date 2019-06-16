@@ -12,7 +12,11 @@ export class ClientDetailsPage implements OnInit {
 
   clientID:string;
   public details: any;
-  constructor( private dataService: DataService, private route: ActivatedRoute, private alertController: AlertController, private router: Router) { }
+  constructor( private dataService: DataService, 
+              private route: ActivatedRoute, 
+              private alertController: AlertController, 
+              private router: Router
+    ) { }
 
   ngOnInit() {
     const data = JSON.parse(this.route.snapshot.paramMap.get('id'));

@@ -9,11 +9,15 @@
 
 <ion-content>
 <ion-list>
-    <ion-label>Thank you for using our app! Hope to see you again soon.</ion-label>
-    <ion-item lines="none">
-    
-        <ion-button (click)="signOut()">Sign out</ion-button>
-    </ion-item>
+<ion-col>
+    <ion-label class="exitMsg"> <p>
+        Thank you for using our app! Hope to see you again soon.
+    </p></ion-label>
+
+        <ion-button expand="block" (click)="signOut()">Sign out</ion-button>
+</ion-col>
+
+
 </ion-list>
 
 </ion-content>

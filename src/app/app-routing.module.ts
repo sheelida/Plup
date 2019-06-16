@@ -15,7 +15,9 @@ const routes: Routes = [
   { path: 'signout', loadChildren: './signout/signout.module#SignoutPageModule' },
   { path: 'signup', loadChildren: './signup/signup.module#SignupPageModule' },
   { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardPageModule' },
-  { path: 'client-details/:id', loadChildren: './client-details/client-details.module#ClientDetailsPageModule' }
+  { path: 'client-details/:id', loadChildren: './client-details/client-details.module#ClientDetailsPageModule' },
+  { path: 'entry-details/:id', loadChildren: './entry-details/entry-details.module#EntryDetailsPageModule' }
+
 
 ];
 
