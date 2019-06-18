@@ -141,8 +141,8 @@ export class DashboardPage implements OnInit {
   triggerNotification(){
     // Schedule delayed notification
     this.localNotifications.schedule({
-      text: 'Delayed ILocalNotification',
-      trigger: {at: new Date(new Date().getTime() + 2)},
+      text: 'Don\'t forget to enter your hours from today!',
+      trigger: {at: new Date(new Date().getTime() + 10)},
       led: 'FF0000',
       sound: null
     });

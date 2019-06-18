@@ -47,10 +47,10 @@
           <ion-label>{{ entry.endTime | date:'hh:mm a' }}</ion-label>
         </ion-col>
         <ion-col col-2>
-          <ion-label>{{ entry.breakTime | date:'H:mm' : 'UTC' }}</ion-label>
+          <ion-label *ngIf="convertBreakToUTC(entry.breakTime)">{{ this.breakConverted | date:'H:mm' : 'UTC' }}</ion-label>
         </ion-col>
         <ion-col col-2>
-          <ion-label *ngIf="convertEpochToUTC(entry.totalHours)"> {{ this.sumHours  | date: 'H:mm' :'UTC'}}</ion-label>
+          <ion-label *ngIf="convertTotalToUTC(entry.totalHours)"> {{ this.sumHours  | date: 'H:mm' :'UTC'}}</ion-label>
         </ion-col>  
       </ion-row>    
     </ion-grid>  

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-signup',
@@ -13,7 +14,8 @@ export class SignupPage implements OnInit {
   constructor( 
     private authService:AuthService, 
     private formBuilder:FormBuilder,
-    private router:Router) 
+    private router:Router,
+    private alertController:AlertController) 
     { }
 
   ngOnInit() {
@@ -27,11 +29,33 @@ export class SignupPage implements OnInit {
     .then( (response) =>{
       console.log(response);
       //successful
-      this.router.navigate(['/home']);
+      this.router.navigate(['/dashboard']);
+      this.userCreatedAlert();
     })
     .catch((error)=>{
+      this.errorAlert();
       console.log(error);
     })
   }
 
+  async userCreatedAlert() {
+    const alert = await this.alertController.create({
+      header: 'Alert',
+      subHeader: 'User Created',
+      message: 'User successfully created!',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+  async errorAlert() {
+    const alert = await this.alertController.create({
+      header: 'Alert',
+      subHeader: 'User Created',
+      message: 'User successfully created!',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
 }

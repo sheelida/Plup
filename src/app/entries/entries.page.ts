@@ -15,6 +15,8 @@ export class EntriesPage implements OnInit {
   clientID:string;
   public entries: any[];
   public sumHours: any;
+  public breakConverted: any;
+
   constructor(private dataService: DataService, 
     private route: ActivatedRoute,
     private router: Router) {
@@ -39,9 +41,15 @@ export class EntriesPage implements OnInit {
       this.router.navigate(['../entry-details',idJSON]);
     }
 
-    convertEpochToUTC(hour:number){
+    convertTotalToUTC(hour:number){
       let UNIXtime = new Date(hour*1000);      
       this.sumHours = UNIXtime.toUTCString();
+      return true;
+    }
+
+    convertBreakToUTC(hour:number){
+      let UNIXtime = new Date(hour*1000);      
+      this.breakConverted = UNIXtime.toUTCString();
       return true;
     }
 
