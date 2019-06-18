@@ -19,8 +19,9 @@
           </ion-item>
   
       </ion-list>
-      <ion-button type="submit" [disabled]="!signInForm.valid">Sign IN!</ion-button>
-      <ion-item lines="none">Don't you have an account yet? <a routerLink="/signup"> JOIN US</a></ion-item>
+      <ion-button type="submit" [disabled]="!signInForm.valid" expand="block">Sign IN!</ion-button>
+      <ion-item lines="none">Don't you have an account yet?</ion-item>
+      <ion-button expand="block" color="success" routerLink="/signup">Join us!</ion-button>
     </form>
   
   </ion-content>
