@@ -142,7 +142,8 @@ export class DashboardPage implements OnInit {
     // Schedule delayed notification
     this.localNotifications.schedule({
       text: 'Don\'t forget to enter your hours from today!',
-      trigger: {at: new Date(new Date().getTime() + 10)},
+      //sends once a day
+      trigger: {at: new Date(new Date().getTime() + 86400)},
       led: 'FF0000',
       sound: null
     });
